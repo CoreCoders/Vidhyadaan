@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_background"
-    android:orientation="vertical"
-    tools:context="com.unbeatable.vidhyadaan.MainActivity">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_background"
+                android:orientation="vertical"
+                tools:context="com.unbeatable.vidhyadaan.MainActivity">
 
     <ImageView
         android:id="@+id/iv_logoText"
@@ -18,7 +18,7 @@
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:background="@drawable/vidhyadaan_text"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"/>
 
 
     <LinearLayout
@@ -56,7 +56,7 @@
                         android:drawableLeft="@drawable/ic_person_outline_black_24dp"
                         android:drawablePadding="15dp"
                         android:hint="Email-Id"
-                        android:singleLine="true" />
+                        android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -73,43 +73,76 @@
                         android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
                         android:drawablePadding="15dp"
                         android:hint="Password"
-                        android:singleLine="true" />
+                        android:singleLine="true"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <Button
-                        android:id="@+id/btn_signIn"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:id="@+id/ll_loginOptions"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorAccent"
-                        android:text="Sign-in"
-                        android:textAllCaps="true"
-                        android:textColor="@android:color/white"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <Button
-                        android:id="@+id/btn_signUp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimary"
-                        android:text="Sign-Up"
-                        android:textAllCaps="true"
-                        android:textColor="@android:color/white"
-                        android:textSize="16dp" />
+                        <Button
+                            android:id="@+id/btn_signIn"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorAccent"
+                            android:gravity="center"
+                            android:text="Sign-in"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="16dp"/>
 
-                </LinearLayout>
+                        <Button
+                            android:id="@+id/btn_signUp"
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+
+                            android:layout_marginLeft="5dp"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:text="Sign-Up"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="16dp"/>
+
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_processing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:indeterminate="true"
+                            />
+
+                    </FrameLayout>
+
+                </FrameLayout>
 
 
             </LinearLayout>
@@ -125,7 +158,7 @@
         android:layout_below="@id/iv_logoText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-65dp"
-        android:src="@drawable/login_card_item" />
+        android:src="@drawable/login_card_item"/>
 
 
 </RelativeLayout>

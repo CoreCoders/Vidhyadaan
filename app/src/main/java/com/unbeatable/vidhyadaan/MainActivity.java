@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                                 if (loginResult == SUCCESS)
                                 {
                                     Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                                    i.putExtra("user_name", userName);
+                                    ((App)getApplication()).setUid(userName);
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(i);
                                 } else

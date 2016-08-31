@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,11 +17,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.unbeatable.vidhyadaan.firebasemodle.Note;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 public class TakeMyNoteActivity extends AppCompatActivity
 {
 
     private Toolbar mToolbar;
-    private TextView tvSelectDate;
+    //private TextView tvSelectDate;
     private AppCompatSpinner spStdNote;
     private EditText etTodayNote, etNextNote;
     private Button btnTakeNote;
@@ -34,12 +39,38 @@ public class TakeMyNoteActivity extends AppCompatActivity
         mToolbar = (Toolbar) findViewById(R.id.toolNote);
         setSupportActionBar(mToolbar);
 
-        tvSelectDate = (TextView) findViewById(R.id.tv_selectDate);
+        //tvSelectDate = (TextView) findViewById(R.id.tv_selectDate);
         spStdNote = (AppCompatSpinner) findViewById(R.id.sp_std_note);
+
+
+        List<String> std = new ArrayList<>();
+        std.add("Select Standard");
+        for (int i = 3; i < 12; i++)
+        {
+            std.add(String.valueOf(i));
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, std);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spStdNote.setAdapter(dataAdapter);
+
+
         etTodayNote = (EditText) findViewById(R.id.et_todayNote);
         etNextNote = (EditText) findViewById(R.id.et_nextNote);
         btnTakeNote = (Button) findViewById(R.id.btn_takeMyNote);
-        btnTakeNote.setOnClickListener(new AddNote(this, "rutvik106"));
+
+        final String uid = ((App) getApplication()).getUid();
+
+        if (uid.isEmpty())
+        {
+            btnTakeNote.setOnClickListener(new AddNote(this, uid));
+        }
+
     }
 
     class AddNote implements View.OnClickListener, Note.OnAddNoteCallback
@@ -59,10 +90,24 @@ public class TakeMyNoteActivity extends AppCompatActivity
 
             final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-            Note.addNote(new Note("14-08-2016", "5", "hello this is what i did today", "on next sunday"),
-                    uid,
-                    dbRef,
-                    this);
+            final String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
+
+            final String standard = spStdNote.getSelectedItem().toString();
+
+            final String todayNote = etTodayNote.getText().toString().trim();
+
+            final String nextNote = etNextNote.getText().toString().trim();
+
+            if(!todayNote.isEmpty() && !nextNote.isEmpty()){
+                Note.addNote(new Note(timestamp, standard, todayNote, nextNote),
+                        uid,
+                        dbRef,
+                        this);
+            }else{
+                Toast.makeText(TakeMyNoteActivity.this, "please enter note", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
 
         @Override

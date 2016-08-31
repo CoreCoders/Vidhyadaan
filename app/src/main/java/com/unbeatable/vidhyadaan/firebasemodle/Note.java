@@ -45,7 +45,7 @@ public class Note
         final String key = dbRef.child("notes").push().getKey();
         final Map childUpdates = new HashMap();
         childUpdates.put("/notes/" + key + "/", note.toMap());
-        childUpdates.put("/user-notes/" + uid + "/" + "/" + key + "/", key);
+        childUpdates.put("/user-notes/" + uid + "/" + key + "/", key);
         dbRef.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener()
         {
             @Override

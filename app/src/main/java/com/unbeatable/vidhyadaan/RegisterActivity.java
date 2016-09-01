@@ -42,17 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnSignup = (Button) findViewById(R.id.btnsignUp_register);
 
-        List<String> std = new ArrayList<String>();
+        List<String> std = new ArrayList<>();
         std.add("Select Standard");
-        std.add("3");
-        std.add("4");
-        std.add("5");
-        std.add("6");
-        std.add("7");
-        std.add("8");
-        std.add("9");
-        std.add("10");
-        std.add("11");
+        for(int i=3;i<12;i++)
+        {
+            std.add(String.valueOf(i));
+        }
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, std);

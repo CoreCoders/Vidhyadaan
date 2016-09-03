@@ -24,6 +24,7 @@
             app:cardCornerRadius="8dp">
 
             <LinearLayout
+                android:id="@+id/ll_addStudent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -117,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Address"
                         android:lines="2"
-                        android:maxLength="2" />
+                        android:maxLines="2" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -176,6 +177,8 @@
                     android:id="@+id/btn_addStudent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorPrimary"
                     android:text="Add Student"
                     android:textColor="#FFFFFF" />

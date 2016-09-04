@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,8 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.unbeatable.vidhyadaan.extra.AppUtil;
+import com.unbeatable.vidhyadaan.extra.Util;
 import com.unbeatable.vidhyadaan.firebasemodle.Note;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ public class TakeMyNoteActivity extends AppCompatActivity
     private AppCompatSpinner spStdNote;
     private EditText etTodayNote, etNextNote;
     private Button btnTakeNote;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,12 +73,15 @@ public class TakeMyNoteActivity extends AppCompatActivity
 
         final String uid = ((App) getApplication()).getUid();
 
-        if (uid.isEmpty())
+        if (!uid.isEmpty())
         {
             btnTakeNote.setOnClickListener(new AddNote(this, uid));
         }
 
     }
+
+
+
 
     class AddNote implements View.OnClickListener, Note.OnAddNoteCallback
     {
@@ -98,12 +108,14 @@ public class TakeMyNoteActivity extends AppCompatActivity
 
             final String nextNote = etNextNote.getText().toString().trim();
 
-            if(!todayNote.isEmpty() && !nextNote.isEmpty()){
+            if (!todayNote.isEmpty() && !nextNote.isEmpty())
+            {
                 Note.addNote(new Note(timestamp, standard, todayNote, nextNote),
                         uid,
                         dbRef,
                         this);
-            }else{
+            } else
+            {
                 Toast.makeText(TakeMyNoteActivity.this, "please enter note", Toast.LENGTH_SHORT).show();
             }
 

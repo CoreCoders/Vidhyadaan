@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
 
         cardTakeNote = (CardView) findViewById(R.id.card_takeNote);
+        cardAddStudent = (CardView) findViewById(R.id.card_addStudent);
 
         cardTakeNote.setOnClickListener(new View.OnClickListener()
         {
@@ -58,6 +59,13 @@ public class HomeActivity extends AppCompatActivity
                 });
 
                 dialog.show();
+            }
+        });
+
+        cardAddStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, AddStudentActivity.class));
             }
         });
     }

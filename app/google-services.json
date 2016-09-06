@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "79831922357",
+    "firebase_url": "https://vidhyadaan-fe519.firebaseio.com",
+    "project_id": "vidhyadaan-fe519",
+    "storage_bucket": "vidhyadaan-fe519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79831922357:android:a49a13224e284352",
+        "android_client_info": {
+          "package_name": "com.unbeatable.vidhyadaan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79831922357-15rjqp4chucqj7ekmrbi4fcpebob3kaa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unbeatable.vidhyadaan",
+            "certificate_hash": "600E613E768D9BEDF0FE7EFEB610C67B2DB0FC88"
+          }
+        },
+        {
+          "client_id": "79831922357-fiftrca1hiqa0b8ethike3jikc18pho0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5LEPCwtPoEomeh8oALIbBK-xrNLSwgFg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79831922357-fiftrca1hiqa0b8ethike3jikc18pho0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

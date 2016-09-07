@@ -8,11 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseError;
+import com.unbeatable.vidhyadaan.extra.AppUtil;
+import com.unbeatable.vidhyadaan.firebasemodle.Note;
+
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = AppUtil.APP_TAG + HomeActivity.class.getSimpleName();
 
     private CardView cardTakeAttandance, cardTakeNote, cardAddStudent, cardViewNote;
     private Dialog dialog;
@@ -28,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
         cardTakeNote = (CardView) findViewById(R.id.card_takeNote);
         cardAddStudent = (CardView) findViewById(R.id.card_addStudent);
+        cardViewNote = (CardView) findViewById(R.id.card_viewNote);
 
         cardTakeNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(HomeActivity.this, TakeMyNoteActivity.class));
+                        dialog.dismiss();
                     }
                 });
 
@@ -53,6 +62,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, AddStudentActivity.class));
+            }
+        });
+
+        cardViewNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, ViewNoteActivity.class));
             }
         });
     }

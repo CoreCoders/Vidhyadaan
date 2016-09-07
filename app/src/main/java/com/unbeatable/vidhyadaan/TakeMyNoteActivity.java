@@ -1,10 +1,13 @@
 package com.unbeatable.vidhyadaan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,8 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.unbeatable.vidhyadaan.extra.AppUtil;
+import com.unbeatable.vidhyadaan.extra.Util;
 import com.unbeatable.vidhyadaan.firebasemodle.Note;
 
 import java.util.ArrayList;
@@ -29,6 +37,7 @@ public class TakeMyNoteActivity extends AppCompatActivity {
     private EditText etTodayNote, etNextNote;
     private Button btnTakeNote;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +45,9 @@ public class TakeMyNoteActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolNote);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //tvSelectDate = (TextView) findViewById(R.id.tv_selectDate);
         spStdNote = (AppCompatSpinner) findViewById(R.id.sp_std_note);
@@ -63,11 +75,12 @@ public class TakeMyNoteActivity extends AppCompatActivity {
 
         final String uid = ((App) getApplication()).getUid();
 
-        if (uid.isEmpty()) {
+        if (!uid.isEmpty()) {
             btnTakeNote.setOnClickListener(new AddNote(this, uid));
         }
 
     }
+
 
     class AddNote implements View.OnClickListener, Note.OnAddNoteCallback {
         final String uid;
@@ -110,6 +123,18 @@ public class TakeMyNoteActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(context, "failed to add note", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(TakeMyNoteActivity.this, HomeActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

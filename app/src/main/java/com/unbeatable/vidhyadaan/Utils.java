@@ -24,7 +24,7 @@ public class Utils {
 
 
     public static boolean isFormValid(ViewGroup group) {
-        boolean isValid=true;
+        boolean isValid=false;
         for (int i = 0, count = group.getChildCount(); i < count; ++i) {
             View view = group.getChildAt(i);
             if (view instanceof EditText) {
@@ -32,6 +32,8 @@ public class Utils {
                 if(et.getText().toString().isEmpty()){
                     et.setError("field required");
                     isValid=false;
+                }else {
+                    isValid=true;
                 }
             }
 

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:padding="8dp"
-                android:text="Today Note : "
+                android:text="Last Sunday : "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -36,7 +36,6 @@
                 android:layout_below="@+id/tv_todayNote"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:padding="8dp"
                 android:text="Today note details" />
 
@@ -58,33 +57,57 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
                 android:padding="8dp"
-                android:text="Next day Note : "
+                android:text="Next Sunday : "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_nextDayNote"
+                android:id="@+id/tv_nextDayNoteDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_nextNote"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:padding="8dp"
                 android:text="Today note details" />
 
-            <TextView
-                android:id="@+id/tv_noteDateTime"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/tv_nextDayNote"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:text="time"
-                android:textSize="14sp" />
+                android:layout_below="@+id/tv_nextDayNoteDetails"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Std."
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_stdViewNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="6"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_noteDateTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:text="time"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
 
         </RelativeLayout>

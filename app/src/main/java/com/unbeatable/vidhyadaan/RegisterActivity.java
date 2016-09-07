@@ -1,5 +1,6 @@
 package com.unbeatable.vidhyadaan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -44,8 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         List<String> std = new ArrayList<>();
         std.add("Select Standard");
-        for(int i=3;i<12;i++)
-        {
+        for (int i = 3; i < 12; i++) {
             std.add(String.valueOf(i));
         }
 
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.i(TAG,"SIGN UP CLICKED");
+                Log.i(TAG, "SIGN UP CLICKED");
 
 
                 User.register(FirebaseDatabase.getInstance().getReference(),
@@ -77,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onRegistrationComplete(int registrationStatus) {
                                 if (registrationStatus == User.UserRegistrationCallback.REGISTERED) {
                                     Toast.makeText(RegisterActivity.this, "Registered.!!!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                    finish();
                                 } else if (registrationStatus == User.UserRegistrationCallback.DUPLICATE) {
                                     Toast.makeText(RegisterActivity.this, "Duplicate User id.!!!", Toast.LENGTH_SHORT).show();
                                 } else if (registrationStatus == User.UserRegistrationCallback.FAILED) {

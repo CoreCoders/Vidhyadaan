@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class TakeMyNoteActivity extends AppCompatActivity {
     private AppCompatSpinner spStdNote;
     private EditText etTodayNote, etNextNote;
     private Button btnTakeNote;
+    private FrameLayout flProcessing;
 
 
     @Override
@@ -51,6 +53,8 @@ public class TakeMyNoteActivity extends AppCompatActivity {
 
         //tvSelectDate = (TextView) findViewById(R.id.tv_selectDate);
         spStdNote = (AppCompatSpinner) findViewById(R.id.sp_std_note);
+
+        flProcessing = (FrameLayout) findViewById(R.id.fl_processing_addNote);
 
 
         List<String> std = new ArrayList<>();
@@ -76,6 +80,7 @@ public class TakeMyNoteActivity extends AppCompatActivity {
         final String uid = ((App) getApplication()).getUid();
 
         if (!uid.isEmpty()) {
+
             btnTakeNote.setOnClickListener(new AddNote(this, uid));
         }
 
@@ -94,6 +99,8 @@ public class TakeMyNoteActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            showProcessingView(true);
+
             final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
             final String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
@@ -109,6 +116,7 @@ public class TakeMyNoteActivity extends AppCompatActivity {
                         uid,
                         dbRef,
                         this);
+
             } else {
                 Toast.makeText(TakeMyNoteActivity.this, "please enter note", Toast.LENGTH_SHORT).show();
             }
@@ -120,8 +128,10 @@ public class TakeMyNoteActivity extends AppCompatActivity {
         public void onNoteAdded(Task task, CallbackStatus status) {
             if (status == CallbackStatus.SUCCESS) {
                 Toast.makeText(context, "note added successfully", Toast.LENGTH_SHORT).show();
+                showProcessingView(false);
             } else {
                 Toast.makeText(context, "failed to add note", Toast.LENGTH_SHORT).show();
+                showProcessingView(false);
             }
         }
     }
@@ -138,4 +148,17 @@ public class TakeMyNoteActivity extends AppCompatActivity {
         }
     }
 
+    public void showProcessingView(boolean show) {
+        if (btnTakeNote != null && flProcessing != null) {
+
+            if (show) {
+                flProcessing.setVisibility(View.VISIBLE);
+                btnTakeNote.setVisibility(View.GONE);
+            } else {
+                flProcessing.setVisibility(View.GONE);
+                btnTakeNote.setVisibility(View.VISIBLE);
+            }
+
+        }
+    }
 }

@@ -37,6 +37,15 @@ public class HomeActivity extends AppCompatActivity {
         cardAddStudent = (CardView) findViewById(R.id.card_addStudent);
         cardViewNote = (CardView) findViewById(R.id.card_viewNote);
 
+        findViewById(R.id.card_takeAttandance).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(HomeActivity.this,TakeAttendanceActivity.class));
+            }
+        });
+
         cardTakeNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

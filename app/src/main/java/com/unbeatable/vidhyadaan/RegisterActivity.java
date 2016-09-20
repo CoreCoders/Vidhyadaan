@@ -18,6 +18,7 @@ import com.unbeatable.vidhyadaan.extra.Util;
 import com.unbeatable.vidhyadaan.firebasemodle.User;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnSignup = (Button) findViewById(R.id.btnsignUp_register);
 
-        List<String> std = new ArrayList<>();
+        List<String> std = new LinkedList<>();
         std.add("Select Standard");
         for (int i = 3; i < 12; i++) {
             std.add(String.valueOf(i));
@@ -67,31 +68,50 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Log.i(TAG, "SIGN UP CLICKED");
 
-//                if (!Utils.isFormValid((ViewGroup) findViewById(R.id.ll_registration))) {
-//                    Toast.makeText(RegisterActivity.this, "Please fill up details", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                int spinnerIndex=spStd.getSelectedItemPosition();
+
+                boolean isPasswordSame=etPassword.getText().toString().equals(etRePassword.getText().toString());
+
+                if(isPasswordSame)
+                {
+
+                    if (Utils.isFormValid((ViewGroup) findViewById(R.id.ll_registration)) && spinnerIndex != 0)
+                    {
+                        User.register(FirebaseDatabase.getInstance().getReference(),
+                                etUserId.getText().toString().trim().toLowerCase(),
+                                etFullName.getText().toString().trim().toLowerCase(),
+                                etPassword.getText().toString().trim().toLowerCase(),
+                                spStd.getSelectedItem().toString(),
+                                new User.UserRegistrationCallback()
+                                {
+                                    @Override
+                                    public void onRegistrationComplete(int registrationStatus)
+                                    {
+                                        if (registrationStatus == User.UserRegistrationCallback.REGISTERED)
+                                        {
+                                            Toast.makeText(RegisterActivity.this, "Registered.!!!", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finish();
+                                        } else if (registrationStatus == User.UserRegistrationCallback.DUPLICATE)
+                                        {
+                                            Toast.makeText(RegisterActivity.this, "Duplicate User id.!!!", Toast.LENGTH_SHORT).show();
+                                        } else if (registrationStatus == User.UserRegistrationCallback.FAILED)
+                                        {
+                                            Toast.makeText(RegisterActivity.this, "Failed.!!!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    } else
+                    {
+                        Toast.makeText(RegisterActivity.this, "Please fill up details/select proper standard", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this, "incorrect password", Toast.LENGTH_SHORT).show();
+                }
 
 
-                User.register(FirebaseDatabase.getInstance().getReference(),
-                        etUserId.getText().toString().trim().toLowerCase(),
-                        etFullName.getText().toString().trim().toLowerCase(),
-                        etPassword.getText().toString().trim().toLowerCase(),
-                        spStd.getSelectedItem().toString(),
-                        new User.UserRegistrationCallback() {
-                            @Override
-                            public void onRegistrationComplete(int registrationStatus) {
-                                if (registrationStatus == User.UserRegistrationCallback.REGISTERED) {
-                                    Toast.makeText(RegisterActivity.this, "Registered.!!!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                    finish();
-                                } else if (registrationStatus == User.UserRegistrationCallback.DUPLICATE) {
-                                    Toast.makeText(RegisterActivity.this, "Duplicate User id.!!!", Toast.LENGTH_SHORT).show();
-                                } else if (registrationStatus == User.UserRegistrationCallback.FAILED) {
-                                    Toast.makeText(RegisterActivity.this, "Failed.!!!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+
             }
         });
     }

@@ -1,14 +1,17 @@
 package com.unbeatable.vidhyadaan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -25,6 +28,7 @@ public class AddStudentActivity extends AppCompatActivity {
             etLastStdPer, etTeacherName;
     private AppCompatSpinner spStd;
     private Button btnAddStudent;
+    private FrameLayout flProcessing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class AddStudentActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.tool_addStudent);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         etStudentName = (EditText) findViewById(R.id.et_studentName);
         etFatherName = (EditText) findViewById(R.id.et_fatherName);
@@ -45,6 +52,8 @@ public class AddStudentActivity extends AppCompatActivity {
         etTeacherName = (EditText) findViewById(R.id.et_teacherName);
 
         spStd = (AppCompatSpinner) findViewById(R.id.sp_studentStd);
+
+        flProcessing = (FrameLayout) findViewById(R.id.fl_processing_addStudent);
 
         List<String> std = new ArrayList<>();
         std.add("Select Standard");
@@ -67,10 +76,12 @@ public class AddStudentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!Utils.isFormValid((ViewGroup) findViewById(R.id.ll_addStudent))){
+                if (!Utils.isFormValid((ViewGroup) findViewById(R.id.ll_addStudent))) {
                     Toast.makeText(AddStudentActivity.this, "Please fill up details", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                showProcessingView(true);
 
                 final String name = etStudentName.getText().toString().trim();
                 final String std = spStd.getSelectedItem().toString();
@@ -90,13 +101,41 @@ public class AddStudentActivity extends AppCompatActivity {
                         if (response == AddStudentResponse.SUCCESS) {
                             Toast.makeText(AddStudentActivity.this, "Student Added.", Toast.LENGTH_SHORT).show();
                             Utils.clearForm((ViewGroup) findViewById(R.id.ll_addStudent));
+                            showProcessingView(false);
                         } else {
                             Toast.makeText(AddStudentActivity.this, "Failed to add student.", Toast.LENGTH_SHORT).show();
+                            showProcessingView(false);
                         }
                     }
                 });
 
             }
         });
+    }
+
+    public void showProcessingView(boolean show) {
+        if (btnAddStudent != null && flProcessing != null) {
+
+            if (show) {
+                flProcessing.setVisibility(View.VISIBLE);
+                btnAddStudent.setVisibility(View.GONE);
+            } else {
+                flProcessing.setVisibility(View.GONE);
+                btnAddStudent.setVisibility(View.VISIBLE);
+            }
+
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(AddStudentActivity.this, HomeActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

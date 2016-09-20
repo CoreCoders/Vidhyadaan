@@ -18,7 +18,7 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:alpha=".9"
             app:cardCornerRadius="8dp">
@@ -41,7 +41,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Student Name"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -56,7 +57,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Father Name"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -71,7 +73,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Mother Name"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -86,7 +89,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Occupation"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +107,8 @@
                         android:inputType="number"
                         android:lines="1"
                         android:maxLength="10"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -133,7 +138,8 @@
                         android:layout_height="wrap_content"
                         android:hint="School Name"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -148,7 +154,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Last std. Percentage"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -163,7 +170,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Teacher's Name"
                         android:lines="1"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -173,15 +181,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
-                <Button
-                    android:id="@+id/btn_addStudent"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="15dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorPrimary"
-                    android:text="Add Student"
-                    android:textColor="#FFFFFF" />
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        android:id="@+id/btn_addStudent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:text="Add Student"
+                        android:textColor="#FFFFFF" />
+
+                    <FrameLayout
+                        android:id="@+id/fl_processing_addStudent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:indeterminate="true" />
+
+                    </FrameLayout>
+
+                </FrameLayout>
 
             </LinearLayout>
 

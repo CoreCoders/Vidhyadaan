@@ -24,7 +24,7 @@ public class Utils {
 
 
     public static boolean isFormValid(ViewGroup group) {
-        boolean isValid=false;
+        boolean isValid=true;
         for (int i = 0, count = group.getChildCount(); i < count; ++i) {
             View view = group.getChildAt(i);
             if (view instanceof EditText) {

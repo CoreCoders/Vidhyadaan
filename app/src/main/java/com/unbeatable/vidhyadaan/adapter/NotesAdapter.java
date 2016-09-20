@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.unbeatable.vidhyadaan.component.NoteComponent;
+import com.unbeatable.vidhyadaan.firebasemodle.User;
 import com.unbeatable.vidhyadaan.model.Note;
 import com.unbeatable.vidhyadaan.viewholder.NoteVH;
+import com.unbeatable.vidhyadaan.viewholder.UserVH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,10 @@ public class NotesAdapter extends RecyclerView.Adapter {
         notifyItemInserted(noteComponentList.size());
     }
 
+    public void addUser(User user) {
+        noteComponentList.add(new NoteComponent(user, NoteComponent.USER));
+        notifyItemInserted(noteComponentList.size());
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -42,6 +48,8 @@ public class NotesAdapter extends RecyclerView.Adapter {
         switch (viewType) {
             case NoteComponent.NOTE:
                 return NoteVH.create(context, parent);
+            case NoteComponent.USER:
+                return UserVH.create(context, parent);
             case NoteComponent.CONTACT:
                 return null;
         }
@@ -55,6 +63,9 @@ public class NotesAdapter extends RecyclerView.Adapter {
         switch (getItemViewType(position)) {
             case NoteComponent.NOTE:
                 NoteVH.bind((NoteVH) holder, (Note) noteComponentList.get(position).getObject());
+                break;
+            case NoteComponent.USER:
+                UserVH.bind((UserVH) holder, (User) noteComponentList.get(position).getObject());
                 break;
             case NoteComponent.CONTACT:
 

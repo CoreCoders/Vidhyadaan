@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +66,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.i(TAG, "SIGN UP CLICKED");
+
+//                if (!Utils.isFormValid((ViewGroup) findViewById(R.id.ll_registration))) {
+//                    Toast.makeText(RegisterActivity.this, "Please fill up details", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
 
                 User.register(FirebaseDatabase.getInstance().getReference(),

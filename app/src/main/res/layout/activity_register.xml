@@ -31,6 +31,7 @@
         app:cardCornerRadius="8dp">
 
         <LinearLayout
+            android:id="@+id/ll_registration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -81,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
+                    android:inputType="textPassword"
                     android:lines="1"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
@@ -97,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Re-enter Password"
+                    android:inputType="textPassword"
                     android:lines="1"
                     android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>

@@ -173,6 +173,7 @@ public class Student
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot)
                     {
+                        Log.i(TAG,dataSnapshot.toString());
                         Map<String, Object> studentMap = (Map<String, Object>) dataSnapshot.getValue();
                         studentListListener.onGetStudent(studentMap);
                     }

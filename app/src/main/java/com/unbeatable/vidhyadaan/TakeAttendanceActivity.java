@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.unbeatable.vidhyadaan.adapter.NotesAdapter;
+import com.unbeatable.vidhyadaan.extra.AppUtil;
+import com.unbeatable.vidhyadaan.extra.Log;
 import com.unbeatable.vidhyadaan.firebasemodle.Student;
 import com.unbeatable.vidhyadaan.firebasemodle.User;
 
@@ -14,7 +17,12 @@ import java.util.Map;
 public class TakeAttendanceActivity extends AppCompatActivity implements Student.StudentListListener
 {
 
+
+    private static final String TAG = AppUtil.APP_TAG+TakeAttendanceActivity.class.getSimpleName();
+
     RecyclerView rvTakeAttendance;
+
+    NotesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,6 +36,10 @@ public class TakeAttendanceActivity extends AppCompatActivity implements Student
 
         rvTakeAttendance.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter = new NotesAdapter(this);
+
+        rvTakeAttendance.setAdapter(adapter);
+
         Student.getStudents(((App) getApplication()).getUid(), this);
 
     }
@@ -40,8 +52,8 @@ public class TakeAttendanceActivity extends AppCompatActivity implements Student
         while (iterator.hasNext())
         {
             Map<String, String> singleStudentMap = (Map<String, String>) iterator.next();
-
-            Student.fromMap(singleStudentMap);
+            Log.i(TAG,singleStudentMap.toString());
+            adapter.addStudent(Student.fromMap(singleStudentMap));
 
         }
     }

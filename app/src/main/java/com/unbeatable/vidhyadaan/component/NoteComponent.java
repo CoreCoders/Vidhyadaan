@@ -7,6 +7,8 @@ public class NoteComponent<T> {
 
     public static final int NOTE = 0;
     public static final int CONTACT = 1;
+    public static final int USER = 2;
+    public static final int STUDENT = 3;
 
     private final T object;
 
@@ -16,6 +18,7 @@ public class NoteComponent<T> {
         this.object = object;
         this.viewType = viewType;
     }
+
 
     public T getObject() {
         return object;

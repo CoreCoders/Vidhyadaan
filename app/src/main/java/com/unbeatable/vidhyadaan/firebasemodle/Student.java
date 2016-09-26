@@ -1,6 +1,5 @@
 package com.unbeatable.vidhyadaan.firebasemodle;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,17 +19,17 @@ import java.util.Map;
  * Created by rutvik on 05-08-2016 at 03:21 PM.
  */
 
-public class Student
-{
+public class Student {
     private static final String TAG = AppUtil.APP_TAG + Student.class.getSimpleName();
+
+    private String studentKey;
 
     String standard, name, fatherName, motherName, contact, address, occupation, schoolName, lastYearPer, teacherName;
 
-    boolean isPresent=false;
+    boolean isPresent = false;
 
     public Student(String name, String standard, String fatherName, String motherName, String contact, String address,
-                   String occupation, String schoolName, String lastYearPer, String teacherName)
-    {
+                   String occupation, String schoolName, String lastYearPer, String teacherName) {
         this.name = name;
         this.standard = standard;
         this.fatherName = fatherName;
@@ -43,69 +42,64 @@ public class Student
         this.teacherName = teacherName;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getStandard()
-    {
+    public String getStandard() {
         return standard;
     }
 
-    public String getFatherName()
-    {
+    public String getFatherName() {
         return fatherName;
     }
 
-    public String getMotherName()
-    {
+    public String getMotherName() {
         return motherName;
     }
 
-    public String getContact()
-    {
+    public String getContact() {
         return contact;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public String getOccupation()
-    {
+    public String getOccupation() {
         return occupation;
     }
 
-    public String getSchoolName()
-    {
+    public String getSchoolName() {
         return schoolName;
     }
 
-    public String getLastYearPer()
-    {
+    public String getLastYearPer() {
         return lastYearPer;
     }
 
-    public String getTeacherName()
-    {
+    public String getTeacherName() {
         return teacherName;
     }
 
-    public boolean isPresent()
-    {
+    public boolean isPresent() {
         return isPresent;
     }
 
-    public void setPresent(boolean present)
-    {
+    public String getStudentKey() {
+        return studentKey;
+    }
+
+    public void setStudentKey(String studentKey) {
+        this.studentKey = studentKey;
+    }
+
+    public void setPresent(boolean present) {
         isPresent = present;
     }
 
-    public static Student fromMap(Map<String, String> stringStudentMap)
-    {
-        return new Student(stringStudentMap.get("name"),
+    public static Student fromMap(final Map<String, String> stringStudentMap, final String studentKey) {
+        Student s = new Student(stringStudentMap.get("name"),
                 stringStudentMap.get("standard"),
                 stringStudentMap.get("fatherName"),
                 stringStudentMap.get("motherName"),
@@ -115,10 +109,12 @@ public class Student
                 stringStudentMap.get("schoolName"),
                 stringStudentMap.get("lastYearPer"),
                 stringStudentMap.get("teacherName"));
+        s.setStudentKey(studentKey);
+
+        return s;
     }
 
-    public static void addStudent(Student student, final AddStudentResponseCallback callback)
-    {
+    public static void addStudent(Student student, final AddStudentResponseCallback callback) {
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.getRoot();
 
@@ -137,50 +133,40 @@ public class Student
 
         final Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/students/" + student.getStandard() + "/" + key + "/", studentMap);
-        dbRef.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener()
-        {
+        dbRef.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener() {
             @Override
-            public void onComplete(@NonNull Task task)
-            {
-                if (task.isSuccessful())
-                {
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
                     callback.onAddStudentCallback(task, AddStudentResponseCallback.AddStudentResponse.SUCCESS);
-                } else
-                {
+                } else {
                     callback.onAddStudentCallback(task, AddStudentResponseCallback.AddStudentResponse.FAILED);
                 }
             }
         });
     }
 
-    public static void getStudents(final String uid, final StudentListListener studentListListener)
-    {
+    public static void getStudents(final String uid, final StudentListListener studentListListener) {
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.getRoot();
 
-        dbRef.child("user").child(uid).child("standard").addListenerForSingleValueEvent(new ValueEventListener()
-        {
+        dbRef.child("user").child(uid).child("standard").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 final String standard = dataSnapshot.getValue().toString();
 
                 dbRef.getRoot();
 
-                dbRef.child("students").child(standard).addListenerForSingleValueEvent(new ValueEventListener()
-                {
+                dbRef.child("students").child(standard).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        Log.i(TAG,dataSnapshot.toString());
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i(TAG, dataSnapshot.toString());
                         Map<String, Object> studentMap = (Map<String, Object>) dataSnapshot.getValue();
                         studentListListener.onGetStudent(studentMap);
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError)
-                    {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
@@ -188,18 +174,15 @@ public class Student
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
     }
 
-    public interface AddStudentResponseCallback
-    {
-        enum AddStudentResponse
-        {
+    public interface AddStudentResponseCallback {
+        enum AddStudentResponse {
             SUCCESS,
             FAILED,
         }
@@ -208,8 +191,7 @@ public class Student
     }
 
 
-    public interface StudentListListener
-    {
+    public interface StudentListListener {
         void onGetStudent(Map<String, Object> studentMap);
     }
 

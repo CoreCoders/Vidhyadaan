@@ -45,7 +45,7 @@ public class ViewNoteActivity extends AppCompatActivity {
 
     private void getUserNotes() {
 
-        final String uid = ((App) getApplication()).getUid();
+        final String uid = ((App) getApplication()).getUser().getUser_id();
 
         if (!uid.isEmpty()) {
             Note.getUserNotes(uid, new Note.OnGetNotesCallback() {

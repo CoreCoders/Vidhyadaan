@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.unbeatable.vidhyadaan.extra.AppUtil;
+import com.unbeatable.vidhyadaan.firebasemodle.User;
 
 /**
  * Created by rutvik on 30-08-2016 at 01:07 PM.
@@ -14,17 +15,17 @@ public class App extends MultiDexApplication
 
     public static final String TAG = AppUtil.APP_TAG + App.class.getSimpleName();
 
-    private String uid;
+    private User user;
 
-    public String getUid()
+    public User getUser()
     {
-        Log.i(TAG, "getUid: "+uid);
-        return uid;
+        //Log.i(TAG, "getUser: "+uid);
+        return user;
     }
 
-    public void setUid(final String uid)
+    public void setUser(final User user)
     {
-        Log.i(TAG, "setUid: "+uid);
-        this.uid = uid;
+        //Log.i(TAG, "setUser: "+uid);
+        this.user = user;
     }
 }
